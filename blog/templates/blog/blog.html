@@ -1,0 +1,26 @@
+{% extends 'blog/base.html' %} 
+{% block content %} 
+
+{% include "blog/header.html" %}
+
+<main class="main-content">
+    <div class="section bg-gray">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-8 col-xl-9">
+                    <div class="row gap-y">
+                        {% include 'blog/posts.html' %}
+                    </div>      
+                              
+                </div>
+                <div class="col-md-4 col-xl-3">
+                    <a href="{% url 'ajouter_Post' %}"><button type="button" class="btn btn-primary btn-lg">Creer un Article</button></a>
+                    <hr> {% include 'blog/categories.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock content %}

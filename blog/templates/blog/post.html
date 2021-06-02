@@ -1,0 +1,83 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+{% include "blog/header.html" %}
+<main class="main-content">
+    <div class="section">
+        <div class="container">
+            <div class="text-center mt-8">
+                <h2>{{post.title}}</h2>
+                <p>{{post.date|date}} | {{post.categories.all.0}}</p>
+            </div>
+
+            {% if post.thumbnail %}
+            <div class="text-center mt-8">
+                <img src="{{post.thumbnail.url}}" class="rounded-md">
+
+
+            </div>
+
+            {% endif %}
+
+            <div class="post-content row">
+                <div class="col-lg-8 mx-auto">
+            
+                    <h2 class="font-size-20"><b>overview of the post</b></h2>
+                    <p class="lead">
+                        {{post.overview}}
+                    </p>
+                    <hr class="w-100px">
+                    <h3 class="font-size-20"><b>context of the post</b></h3>
+                    <p>
+                        {{post.content}}
+                    </p>
+
+                </div>
+
+            </div>
+            <div class="Tags gap-xy-2 text-center mt-6">
+                {% for cat in post.categories.all %}
+                <a href="#" class="badge badge-pill badge-secondry">{{cat}}</a>
+                {% endfor %}
+            </div>
+        <div class="section">
+            <div class="container">
+                <h2>Comments({{post_comments_count}})</h2>
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <div class="media-list">
+                            {% for coment in post_comments %}
+                            <div>
+                                    <div class="small-1">
+                                        <b>user</b>
+                                        <time class="ml-4 opacity-70 small-3">{{coment.date}}</time>
+                                    </div>
+                                    <p>{{coment.content}}</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <form method="POST" action="{% url 'post' slug=post.slug %}">
+                            {% csrf_token %}
+                            <div class="form group">
+                                {{form}}
+                            </div>
+                            <button class="btn btn-primary btn-block" type="submit">Comment</button>
+                        </form>
+                        <a href="{% url 'blog' %}">retourner a la page Home</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>    
+
+
+
+
+        </div>
+
+    </div>
+  
+</main>
+
+{% endblock content %}
